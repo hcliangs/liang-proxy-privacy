@@ -1,0 +1,164 @@
+<!doctype html>
+<!-- Public copy of docs/PRIVACY_POLICY.md for the Chrome Web Store "Privacy policy URL".
+     Keep both in sync. -->
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>小亮飛線 Liang Proxy — 隱私權政策 Privacy Policy</title>
+<style>
+  body { font-family: system-ui, "Segoe UI", "Microsoft JhengHei", sans-serif; max-width: 760px; margin: 0 auto; padding: 32px 20px 64px; line-height: 1.75; color: #1d2733; }
+  h1 { font-size: 26px; } h2 { font-size: 19px; margin-top: 32px; } h3 { font-size: 16px; }
+  nav a { margin-right: 16px; } hr { margin: 48px 0; border: 0; border-top: 1px solid #d6dde4; }
+  code { background: #eef2f5; padding: 1px 5px; border-radius: 4px; font-size: 0.92em; }
+  .muted { color: #5b6b7b; }
+</style>
+</head>
+<body>
+<nav><a href="#zh">繁體中文</a><a href="#en" lang="en">English</a></nav>
+
+<section id="zh">
+<h1>小亮飛線隱私權政策</h1>
+<p class="muted">生效日期：2026-11-22</p>
+<p>「小亮飛線」（英文名 Liang Proxy）是 Chrome Manifest V3 免費代理擴充功能，只變更 Chrome 瀏覽器的 HTTP(S)／WebSocket 代理路由，不是系統 VPN。所有功能都免費；贊助完全自願。</p>
+
+<h2>我們處理哪些資料</h2>
+<p>為了取得、檢測、排序及連線代理節點，擴充會在你的裝置上處理並以 <code>chrome.storage.local</code> 儲存：</p>
+<ul>
+<li>你的設定與同意狀態，例如介面語言、區域、排程、來源開關、自動備援及網址測試設定。</li>
+<li>公開清單中的代理端點、來源識別、來源宣稱的國家與品質資訊。</li>
+<li>節點檢測結果，包括代理出口 IP、出口國家、延遲、近期成功／失敗紀錄、錯誤與時間。</li>
+<li>你的直連公開 IP，用於排除沒有真正代理、仍回到直連出口的節點。</li>
+<li>目前連線狀態、出口 IP、時間、錯誤與最近的本機事件紀錄。</li>
+<li>當你主動匯入節點時，匯入的節點位址與匯入時間。匯出只在你的裝置上產生文字或檔案，不會傳送到任何地方；匯出內容只有公開節點位址與檢測結果，不含你的 IP 或瀏覽資料。</li>
+<li>當你主動使用「測試特定網址」時，你輸入的完整網址（可能包含路徑與查詢字串）、測試區域、節點結果、建立的分頁識別碼及進度。</li>
+</ul>
+<p>這些資料用於擴充的單一目的：在 Chrome 中尋找、驗證、排序、連線與切換公開免費代理，以及依你的要求測試特定網址。擴充不建立開發者後端，也不把上述本機紀錄上傳給開發者。</p>
+
+<h2>對外網路請求與第三方</h2>
+<p>你在擴充中按下「我了解並同意」之前，擴充不會發出任何對外請求。同意後，擴充會直接向下列第三方發出 HTTPS GET 請求；請求不帶 Cookie，也不包含你輸入的測試網址，除非該請求本身就是你要求測試的網址：</p>
+<ol>
+<li><b>代理清單來源</b>：GitHub Raw（proxmint、hproxy、ProxyScrape、proxifly、monosans）、GitHub Raw 抓不到時改用的 jsDelivr 鏡像（同一份公開檔案）及 ProxyScrape 免費 API，用於下載公開的純文字／JSON 節點資料。</li>
+<li><b>節點與出口檢測</b>：Cloudflare trace、GeoJS、IPinfo、ipify 及 icanhazip，用於確認代理出口 IP、國家及可達性。</li>
+<li><b>你輸入的測試網址</b>：只有在你主動開始網址測試時，擴充才會向該網址發出不帶 Cookie 的 <code>no-cors</code> GET。目標網站會收到完整路徑與查詢字串。HTTPS 可防止代理讀取路徑與內容，但免費代理仍可看到目的主機、連線時間與流量特徵；HTTP 網址的完整內容可被代理讀取或竄改。</li>
+<li><b>Portaly</b>：只有你按下「支持開發」時，Chrome 才會在一般分頁開啟 <code>https://portaly.cc/hcliangs/support</code>。擴充不記錄點擊、付款狀態或付款資料，也不向 Portaly 發出背景請求。Portaly 頁面適用其自己的隱私政策。</li>
+</ol>
+<p>每個第三方可能從一般網路連線取得來源 IP、時間、User-Agent 或其他標準 HTTP／TLS 中繼資料，並依各自的隱私政策處理。開發者不控制免費代理營運者或上述第三方服務。</p>
+
+<h2>網址測試與一般分頁的重要差異</h2>
+<ul>
+<li>背景網址測試不帶 Cookie，也讀不到回應內容或狀態碼；「可開啟」只表示伺服器有回應。</li>
+<li>若原網址跨網域轉址，轉址目的地可能使用當時的預設路由：未連線時可能是直連，已連線時可能是原本節點，而不是正在受測的節點。目的地因此可能看到該預設路由的出口 IP。連線後的複驗會改用所選節點，但初次測試仍有這項限制。</li>
+<li>當擴充成功連線並在一般 Chrome 分頁開啟網址時，該分頁與一般瀏覽相同：網站可能收到既有 Cookie，網址會進入 Chrome 的一般瀏覽記錄。擴充本身不讀取 Cookie 或瀏覽記錄。</li>
+<li>請勿輸入含密碼、權杖、重設連結或其他敏感查詢參數的網址。</li>
+</ul>
+
+<h2>我們不做的事</h2>
+<ul>
+<li>不使用分析、廣告、遙測或使用者追蹤服務。</li>
+<li>不收集或讀取一般瀏覽記錄、分頁內容、Cookie、密碼、表單內容或付款資訊。</li>
+<li>不出售、出租或提供資料給廣告平台、資料仲介或資訊轉售商。</li>
+<li>不用資料做個人化廣告、信用／貸款判斷或與代理功能無關的用途。</li>
+<li>不依贊助與否解鎖、限制或改變任何功能。</li>
+<li>不執行遠端程式碼；遠端代理清單只作為不可信資料解析。</li>
+</ul>
+
+<h2>保留、刪除與控制</h2>
+<p>資料只保存在你的 Chrome 使用者設定檔中，直到被較新的掃描／測試結果取代、依程式的節點清理規則移除、你清除擴充資料，或你移除擴充功能。Chrome 移除擴充時會刪除其本機儲存。擴充沒有開發者伺服器，因此開發者沒有可代為查詢、匯出或刪除的雲端帳戶資料。你可以在選項頁停用個別來源、自動掃描或自動備援，也可以隨時中斷代理。</p>
+
+<h2>安全措施</h2>
+<ul>
+<li>所有擴充主動連線的來源與檢測服務均使用 HTTPS。</li>
+<li>遠端清單有格式、協定、主機、port、筆數與大小限制；內容不會當成程式碼執行。</li>
+<li>擴充不要求 <code>cookies</code>、<code>history</code>、<code>tabs</code>、<code>webRequest</code>、<code>scripting</code> 或 <code>&lt;all_urls&gt;</code> 權限。</li>
+<li>連線節點失效時不改回直連；但這不是完整 Kill Switch，也不保護 Chrome 以外的應用程式。</li>
+</ul>
+<p>免費代理本質上不可信。請只造訪 HTTPS 網站，且不要用免費代理登入帳號、付款、網路銀行或處理敏感資料。</p>
+
+<h2>兒童隱私</h2>
+<p>本擴充不是專為兒童設計，也不會明知而收集兒童的個人資料。</p>
+
+<h2>政策變更</h2>
+<p>若資料處理方式有實質變更，我們會更新本政策、生效日期與 Chrome Web Store 的隱私揭露，並在變更生效前於擴充中向使用者明確說明。</p>
+
+<h2>Chrome Web Store Limited Use 聲明</h2>
+<p>本擴充對從 Google API／Chrome 平台取得之資訊的使用，遵守 Chrome Web Store User Data Policy，包括 Limited Use requirements。資料只用於提供使用者可見的代理功能，不用於廣告、資料轉售、信用判斷或其他禁止用途。</p>
+
+<h2>聯絡方式</h2>
+<p>開發者：hcliangs<br>電子郵件：<a href="mailto:hcliangs@gmail.com">hcliangs@gmail.com</a></p>
+</section>
+
+<hr>
+
+<section id="en" lang="en">
+<h1>Liang Proxy Privacy Policy</h1>
+<p class="muted">Effective date: November 22, 2026</p>
+<p>Liang Proxy (小亮飛線) is a Chrome Manifest V3 extension for free proxies. It only changes how Chrome routes its own HTTP(S) and WebSocket traffic; it is not a system-wide VPN. Every feature is free, and donations are entirely optional.</p>
+
+<h2>What data we handle</h2>
+<p>To find, test, rank and connect to proxy nodes, the extension processes the following on your device and stores it in <code>chrome.storage.local</code>:</p>
+<ul>
+<li>Your settings and consent status, such as interface language, region, schedule, source toggles, automatic failover and site-test settings.</li>
+<li>Proxy endpoints from public lists, which list they came from, and the country and quality info those lists claim.</li>
+<li>Node test results: exit IP, exit country, latency, recent successes and failures, errors and timestamps.</li>
+<li>Your own public IP when connecting directly, used to rule out nodes that don't actually proxy and still exit from your address.</li>
+<li>Current connection status, exit IP, timestamps, errors and a short local event log.</li>
+<li>If you import nodes, the imported addresses and when you imported them. Exports are created on your device only and are never sent anywhere; they contain public node addresses and test results, not your IP or browsing data.</li>
+<li>If you use "Test a site", the full URL you enter (which may include a path and query string), the test region, node results, the ID of the tab the extension opens, and progress.</li>
+</ul>
+<p>This data serves the extension's single purpose: finding, testing, ranking, connecting to and switching between free public proxies in Chrome, and testing a site when you ask. There is no developer backend, and none of this local data is uploaded to the developer.</p>
+
+<h2>Network requests and third parties</h2>
+<p>Until you click "I understand and agree" in the extension, it makes no network requests at all. After that, it sends HTTPS GET requests directly to the third parties below. These requests carry no cookies and never include the URL you're testing, unless the request is the site test you asked for:</p>
+<ol>
+<li><b>Proxy list sources</b>: GitHub Raw (proxmint, hproxy, ProxyScrape, proxifly, monosans), jsDelivr mirrors of the same public files when GitHub Raw can't be reached, and the free ProxyScrape API, to download public plain-text or JSON node lists.</li>
+<li><b>Node and exit checks</b>: Cloudflare trace, GeoJS, IPinfo, ipify and icanhazip, to confirm each proxy's exit IP, country and reachability.</li>
+<li><b>Sites you test</b>: only when you start a site test, the extension sends a cookie-free <code>no-cors</code> GET to that URL. The site receives the full path and query string. HTTPS stops the proxy from reading the path and content, but a free proxy can still see the destination host, timing and traffic patterns; with plain HTTP, the proxy can read or alter everything.</li>
+<li><b>Portaly</b>: only when you click "Support" does Chrome open <code>https://portaly.cc/hcliangs/support</code> in a normal tab. The extension doesn't record clicks, payment status or payment details, and makes no background requests to Portaly. Portaly's own privacy policy applies on its page.</li>
+</ol>
+<p>Like any website, each third party may see your source IP, the time, your User-Agent and other standard HTTP/TLS metadata, and handles it under its own privacy policy. The developer has no control over free proxy operators or the services above.</p>
+
+<h2>Site tests versus normal tabs</h2>
+<ul>
+<li>Background site tests send no cookies and can't read the response body or status code; "opens" only means the server answered.</li>
+<li>If the URL redirects to another site, the redirect target may be reached over whatever route is current: directly if you're not connected, or through your current node rather than the one being tested. That site may then see that route's exit IP. Re-checking after you connect uses the chosen node, but the first test has this limitation.</li>
+<li>When the extension connects and opens the URL in a normal Chrome tab, that tab behaves like normal browsing: the site may receive your existing cookies and the visit is saved in Chrome's history. The extension itself never reads cookies or history.</li>
+<li>Don't enter URLs that contain passwords, tokens, reset links or other sensitive query parameters.</li>
+</ul>
+
+<h2>What we don't do</h2>
+<ul>
+<li>No analytics, ads, telemetry or user tracking.</li>
+<li>We don't collect or read your browsing history, page content, cookies, passwords, form data or payment info.</li>
+<li>We don't sell, rent or share data with ad platforms, data brokers or resellers.</li>
+<li>We don't use data for personalized ads, credit or lending decisions, or anything unrelated to the proxy features.</li>
+<li>Donating never unlocks, limits or changes any feature.</li>
+<li>No remote code runs; remote proxy lists are parsed as untrusted data.</li>
+</ul>
+
+<h2>Retention, deletion and control</h2>
+<p>Data stays in your Chrome profile until newer scans or tests replace it, the node cleanup rules remove it, you clear the extension's data, or you uninstall the extension. Uninstalling deletes all of its local storage. Since there is no developer server, the developer has no account data to look up, export or delete for you. In the options page you can turn off individual sources, automatic scanning or automatic failover, and you can disconnect at any time.</p>
+
+<h2>Security</h2>
+<ul>
+<li>Every list source and check service the extension contacts uses HTTPS.</li>
+<li>Remote lists are limited in format, protocol, host, port, entry count and size, and are never run as code.</li>
+<li>The extension doesn't request the <code>cookies</code>, <code>history</code>, <code>tabs</code>, <code>webRequest</code>, <code>scripting</code> or <code>&lt;all_urls&gt;</code> permissions.</li>
+<li>If the connected node fails, traffic doesn't fall back to a direct connection. This isn't a full kill switch, though, and it doesn't protect apps outside Chrome.</li>
+</ul>
+<p>Free proxies can't be trusted. Stick to HTTPS sites, and don't use a free proxy to sign in, pay, bank online or handle anything sensitive.</p>
+
+<h2>Children's privacy</h2>
+<p>This extension isn't designed for children and doesn't knowingly collect personal data from children.</p>
+
+<h2>Changes to this policy</h2>
+<p>If the way we handle data changes materially, we'll update this policy, its effective date and the Chrome Web Store privacy disclosures, and tell you clearly in the extension before the change takes effect.</p>
+
+<h2>Chrome Web Store Limited Use</h2>
+<p>The use of information received from Google APIs and the Chrome platform complies with the Chrome Web Store User Data Policy, including the Limited Use requirements. Data is used only to provide the user-facing proxy features, never for ads, resale, credit decisions or other prohibited purposes.</p>
+
+<h2>Contact</h2>
+<p>Developer: hcliangs<br>Email: <a href="mailto:hcliangs@gmail.com">hcliangs@gmail.com</a></p>
+</section>
+</body>
+</html>
